@@ -27,7 +27,7 @@ if not any (mount.mountPoint == f"/mnt/{layer_name}" for mount in dbutils.fs.mou
 
 
     dbutils.fs.mount(
-    source = "abfss://bronze@formulaonebwt.dfs.core.windows.net/",
+    source = f"abfss://{layer_name}@formulaonebwt.dfs.core.windows.net/",
     mount_point = f"/mnt/{layer_name}",
     extra_configs = configs)
 
