@@ -15,12 +15,12 @@ from pyspark.sql.functions import lit
 
 #Create Dataframe
 
-def create_dataframe_from_csv(input_path, input_schema):
+def create_dataframe_from_csv(input_path, input_schema, header_status = True):
     """
     This Function will create dataframe from input csv file and input schema
     """
 
-    df = spark.read.csv(input_path, schema = input_schema, header = True)
+    df = spark.read.csv(input_path, schema = input_schema, header = header_status)
     return df
 
 # COMMAND ----------
