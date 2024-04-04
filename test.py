@@ -40,3 +40,7 @@ dbutils.fs.mount(
 # COMMAND ----------
 
 display(dbutils.fs.ls("/mnt/formula-one"))
+
+# COMMAND ----------
+
+dbutils.fs.unmount("/mnt/formula-one")
