@@ -44,6 +44,7 @@ df = df.withColumnRenamed("positionText","position_text")
 df = df.withColumnRenamed("positionOrder","position_order")
 df = df.withColumnRenamed("fastestLapTime","fastest_lap_time")
 df = df.withColumnRenamed("fastestLapSpeed","fastest_lap_speed")
+df = df.withColumnRenamed("fastestLap","fastest_lap")
 
 #Add date column in df
 
