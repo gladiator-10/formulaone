@@ -16,7 +16,6 @@ constructor_df1 = constructor_df.select("constructor_id",col("name").alias("team
 # COMMAND ----------
 
 final_df = results_df1.join(driver_df1,"driver_id","left").join(constructor_df1,"constructor_id","left")
-final_df.display()
 
 # COMMAND ----------
 
