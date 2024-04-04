@@ -39,3 +39,20 @@ res3_df = res1_df.alias("res1").join(res2_df.alias("res2"), (col("res1.pts") == 
 res3_df.select(col("res1.constructor_id"), col("res1.year"), col("res1.pts"))
 
 res3_df.join(constructors_df1,"constructor_id","inner").select("constructor_id","constructor_ref",col("res1.year"),col("res1.pts")).orderBy(col("res1.year")).display()
+
+# COMMAND ----------
+
+qualifying_df = spark.read.parquet("/mnt/silver/qualifying")
+qualifying_df1 = qualifying_df.select("race_id","driver_id","constructor_id","q1")
+
+f1 = qualifying_df1.join(races_df1,"race_id","left")
+f1.display()
+
+col_list = ["year","race_id"]
+windowSpec = Window.partitionBy(col_list).orderBy("q1")
+f2 = f1.withColumn("rank",rank().over(windowSpec))
+f2 = f2.where(col("rank")==1).drop(col("rank"))
+f2.where(col("year")==2020).display()
+
+f3 = f2.join(driver_df1,"driver_id","inner").join(constructors_df1,"constructor_id","inner")
+f3.select("year","name","constructor_ref","q1").display()
