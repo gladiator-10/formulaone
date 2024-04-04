@@ -27,7 +27,7 @@ input_schema = StructType(
 
 # COMMAND ----------
 
-df = create_dataframe("/mnt/bronze/circuits.csv",input_schema)
+df = create_dataframe_from_csv("/mnt/bronze/circuits.csv",input_schema)
 df.display()
 df.printSchema()
 
@@ -40,15 +40,11 @@ df = df.withColumnRenamed("circuitRef","circuit_ref")
 
 #Add date column in df
 
-cur_date = datetime.today().strftime('%Y-%m-%d')
+cur_date = current_dt()
 
 df = df.withColumn("ingest_date",lit(cur_date))
 df.display()
 
 # COMMAND ----------
 
-df.write.parquet("/mnt/silver/circuits")
-
-# COMMAND ----------
-
-display(dbutils.fs.ls("/mnt/silver"))
+df.write.mode('overwrite').parquet("/mnt/silver/circuits")
